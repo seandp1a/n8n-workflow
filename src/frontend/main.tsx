@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             Component: Home,
           },
           {
-            path: "orders",
+            path: "user",
             Component: Page2,
           },
         ],

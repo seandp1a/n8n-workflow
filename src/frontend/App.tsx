@@ -1,5 +1,5 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Navigation } from "@toolpad/core/AppProvider";
 import { ReactRouterAppProvider } from "@toolpad/core/react-router";
 import { Outlet } from "react-router";
@@ -15,9 +15,9 @@ const NAVIGATION: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: "orders",
-    title: "Orders",
-    icon: <ShoppingCartIcon />,
+    segment: "user",
+    title: "User",
+    icon: <AccountCircleIcon />,
   },
 ];
 
