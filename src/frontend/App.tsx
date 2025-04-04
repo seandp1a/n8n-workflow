@@ -1,5 +1,4 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import { AccountTree, Fingerprint } from '@mui/icons-material';
 import { Navigation } from "@toolpad/core/AppProvider";
 import { ReactRouterAppProvider } from "@toolpad/core/react-router";
 import { Outlet } from "react-router";
@@ -11,13 +10,13 @@ const NAVIGATION: Navigation = [
     title: "Main items",
   },
   {
-    title: "Dashboard",
-    icon: <DashboardIcon />,
+    title: "Tokens",
+    icon: <Fingerprint />,
   },
   {
-    segment: "user",
-    title: "User",
-    icon: <AccountCircleIcon />,
+    segment: "workflow",
+    title: "Workflow",
+    icon: <AccountTree />,
   },
 ];
 

@@ -1,22 +1,25 @@
 import { Button, FormControl, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { TokenField } from "../enum/token.enum";
 
 const fields = [
-  { label: "Jira Token", value: "" },
-  { label: "Conflunce Token", value: "" },
-  { label: "Git Lab Token", value: "" },
+  { id: TokenField.N8N, label: "n8n Token", value: "" },
+  { id: TokenField.JIRA, label: "Jira Token", value: "" },
+  { id: TokenField.CONFLUENCE, label: "Conflunce Token", value: "" },
+  { id: TokenField.GITLAB, label: "Git Lab Token", value: "" },
 ];
 
 export default function Home() {
-  const [fieldValues, setFieldValues] = useState<{ [key: string]: string }>({
-    "Jira Token": "",
-    "Confluence Token": "",
-    "Git Lab Token": "",
+  const [fieldValues, setFieldValues] = useState<Record<TokenField, string>>({
+    [TokenField.N8N]: "",
+    [TokenField.JIRA]: "",
+    [TokenField.CONFLUENCE]: "",
+    [TokenField.GITLAB]: "",
   });
 
-  const handleInputChange = (label: string, value: string) => {
-    setFieldValues({ ...fieldValues, [label]: value });
+  const handleInputChange = (id: string, value: string) => {
+    setFieldValues({ ...fieldValues, [id]: value });
   };
 
   useEffect(() => {
@@ -37,22 +40,26 @@ export default function Home() {
   }
 
   return (
-    <Typography color="grey.800" component="div" variant="body1">
+    <Typography
+      color="grey.800"
+      component="div"
+      variant="body1"
+    >
       <form
         noValidate
         autoComplete="off"
       >
         {fields.map((field) => (
           <FormControl
-            key={field.label}
+            key={field.id}
             sx={{ width: "100%", marginBottom: "1rem" }}
           >
             <TextField
-              id={`filled-basic-${field.label.toLowerCase().replace(/\s/g, "-")}`}
+              id={`filled-basic-${field.id.toLowerCase().replace(/\s/g, "-")}`}
               label={field.label}
               variant="outlined"
-              value={fieldValues[field.label]}
-              onChange={(e) => handleInputChange(field.label, e.target.value)}
+              value={fieldValues[field.id]}
+              onChange={(e) => handleInputChange(field.id, e.target.value)}
             />
           </FormControl>
         ))}
