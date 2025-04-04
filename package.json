@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "main": "dist/main.js",
+  "author": "Sean",
+  "description": "A React + TypeScript + Electron + Vite + Toolpad app",
   "scripts": {
     "lint": "eslint .",
     "start": "electron-forge start",
