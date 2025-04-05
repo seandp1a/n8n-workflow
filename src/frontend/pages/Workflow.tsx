@@ -2,6 +2,8 @@ import { PlayArrow } from "@mui/icons-material";
 import { Box, Button, Skeleton, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 enum Status {
   Waiting = "Waiting",
   Success = "Success",
@@ -9,7 +11,10 @@ enum Status {
 }
 
 export default function WorkflowPage() {
+
+  const tokens = useSelector((state: RootState) => state.token);
   const [isLoading, setIsLoading] = useState(false);
+  const [workflow, setWorkflow] = useState([]);
   const [hooksResponse, setHooksResponse] = useState<{
     [key: string]: Status;
   }>({
@@ -22,22 +27,23 @@ export default function WorkflowPage() {
   };
   useEffect(() => {
     const getWorkflows = async () => {
-      const response = await fetch("http://localhost:5678/rest/workflows", {
+      const response = await fetch("/n8n/api/v1/workflows", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          "X-N8N-API-KEY": tokens.n8nToken,
         },
-        
       });
       const data = await response.json();
       console.log(data);
     };
 
-    // getWorkflows();
+    getWorkflows();
   }, []);
-  console.log(isLoading);
+
   async function handleClick() {
+    console.log(tokens);
+    return;
     setIsLoading(true);
     const response = await fetch("http://localhost:5678/webhook-test/hook1", {
       method: "POST",
