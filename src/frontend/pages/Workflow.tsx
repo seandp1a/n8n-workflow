@@ -1,7 +1,7 @@
 import { PlayArrow } from "@mui/icons-material";
 import { Box, Button, Skeleton, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Workflow } from "../type/workflow.type";
@@ -25,21 +25,21 @@ export default function WorkflowPage() {
     Success: "success",
     Error: "error",
   };
+  const getWorkflows = useCallback(async () => {
+    const response = await backend.fetchFromAPI(`/n8n/api/v1/workflows`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-N8N-API-KEY": tokens.n8nToken,
+      },
+    });
+    if (response.data) {
+      setWorkflow(response.data);
+      console.log("data", response.data);
+    }
+  }, []);
+
   useEffect(() => {
-    const getWorkflows = async () => {
-      const response = await fetch("/n8n/api/v1/workflows", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-N8N-API-KEY": tokens.n8nToken,
-        },
-      });
-      const data = await response.json();
-      if (data.data) {
-        setWorkflow(data.data);
-        console.log("data", data.data);
-      }
-    };
     getWorkflows();
   }, []);
 
